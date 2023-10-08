@@ -345,7 +345,7 @@ HeatingQC: Heating quality and condition
        Fa	Fair
        Po	Poor
 		
-CentralAir: Central air conditioning
+HeatingQC: Central air conditioning
 
        N	No
        Y	Yes
