@@ -241,7 +241,7 @@ def plot_barplot_all_categoric(df):
     ncols  = 6
     nrows = math.ceil(len_categoric_columns/ncols) 
         
-    fig, axes = plt.subplots(nrows, ncols, figsize=(15, ncols*3))
+    fig, axes = plt.subplots(nrows, ncols, figsize=(15, nrows*3))
     axes = axes.flatten()
 
     # Iterate through the columns and create box plots
@@ -265,7 +265,7 @@ def plot_histograms_for_all_numeric(df):
     ncols  = 6
     nrows = math.ceil(qty_numeric_features/ncols) 
         
-    fig, axes = plt.subplots(nrows, ncols, figsize=(15, ncols*2))
+    fig, axes = plt.subplots(nrows, ncols, figsize=(15, nrows*2))
     axes = axes.flatten()  # this code transform axis from 2D to 1D 
 
     # Iterate through the columns and create box plots
@@ -279,3 +279,21 @@ def plot_histograms_for_all_numeric(df):
 
     plt.tight_layout()
     plt.show()
+    
+
+from scipy.stats import chi2_contingency
+def calculate_cramersV(df, col_list, treshold=0.4):
+    cramer_v_dict = {}
+
+    for var1 in col_list:
+        for var2 in col_list:
+            if var1 != var2:
+                contingency_table = pd.crosstab(df[var1], df[var2])
+                
+                chi2, _, _, _ = chi2_contingency(contingency_table)
+                num_obs = contingency_table.sum().sum()
+                v = np.sqrt(chi2 / (num_obs * (min(contingency_table.shape) - 1)))
+                cramer_v_dict[(var1, var2)] = v
+    
+    filtered_cramer_v_dict = {k: v for k, v in cramer_v_dict.items() if v > treshold}
+    return filtered_cramer_v_dict
