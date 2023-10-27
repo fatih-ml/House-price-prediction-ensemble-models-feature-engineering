@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import math
 
 class Dealing_missing_values:
     def __init__(self, df):
@@ -177,7 +178,7 @@ class FatihOutliers:
         return outlier_stats_df
 
     
-    def plot_boxplots_for_all_numeric(self): 
+    def plot_boxplots_for_all_numeric(self, IQR_multi=3): 
         numeric_df = self.df.select_dtypes(include='number')
         qty_numeric_features = len(self.numeric_column_name_list)
         ncols  = 6
@@ -188,7 +189,7 @@ class FatihOutliers:
 
         # Iterate through the columns and create box plots
         for i, col in enumerate(numeric_df.columns):
-            numeric_df[col].plot.box(ax=axes[i])
+            numeric_df[col].plot.box(whis=IQR_multi , ax=axes[i])
             axes[i].set_title(col)
 
         # Hide any remaining empty subplots
@@ -233,36 +234,38 @@ class FatihOutliers:
         plt.show()
         
 
-def count_plot_all_categoricals(df):        
-    object_columns = df.select_dtypes(include='object').columns
-    n_rows = (len(object_columns) + 1) // 4
-    n_cols = 4
 
-    # Create subplots
-    fig, axes = plt.subplots(n_rows, n_cols, figsize=(16, 2 * n_rows))
+def plot_barplot_all_categoric(df):    
+    categoric_columns = list(df.select_dtypes(include='object').columns) 
+    len_categoric_columns = len(categoric_columns)
+    ncols  = 6
+    nrows = math.ceil(len_categoric_columns/ncols) 
+        
+    fig, axes = plt.subplots(nrows, ncols, figsize=(15, ncols*3))
+    axes = axes.flatten()
 
-    # Flatten the axes if there's only one row
-    if n_rows == 1:
-        axes = axes.reshape(1, -1)
+    # Iterate through the columns and create box plots
+    for i, col in enumerate(categoric_columns):
+        vc = df[col].value_counts()
+        axes[i].bar(x=vc.index, height=vc.values)
+        axes[i].set_title(col)
+        axes[i].set_xticklabels(vc.index, rotation=45)
+    
+    # Hide any remaining empty subplots
+    for i in range(len_categoric_columns, len(axes)):
+        axes[i].axis('off')
 
-    # Loop through each object column and create countplots
-    for i, col in enumerate(object_columns):
-        sns.countplot(x=col, data=df, ax=axes[i//n_cols, i%n_cols])
-
-    # Adjust layout
     plt.tight_layout()
-
-    # Show the plots
     plt.show()
 
-    
+
 def plot_histograms_for_all_numeric(df): 
     numeric_df = df.select_dtypes(include='number')
-    qty_numeric_features = len(numeric_column_name_list)
+    qty_numeric_features = len(numeric_df.columns)
     ncols  = 6
     nrows = math.ceil(qty_numeric_features/ncols) 
         
-    fig, axes = plt.subplots(nrows, ncols, figsize=(15, 15))
+    fig, axes = plt.subplots(nrows, ncols, figsize=(15, ncols*2))
     axes = axes.flatten()  # this code transform axis from 2D to 1D 
 
     # Iterate through the columns and create box plots
