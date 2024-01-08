@@ -5,7 +5,13 @@ import numpy as np
 
 def calculate_score(y_train, y_train_pred, y_test, y_pred, model_name, cv_scores=None):
     
-
+    """
+    this function is serving for two purposes
+    1. helping me the main function
+    2. individual score calculation and evaluation of models
+    model_name(string)
+    when calling individually, dont specify the cv_scores
+    """
     
     model_name_short = model_name[:5]
     
@@ -42,7 +48,13 @@ def calculate_score(y_train, y_train_pred, y_test, y_pred, model_name, cv_scores
 
 def calculate_scores(pipelines, X_train, X_test, y_train, y_test):
     """
-    ...
+    This function is taking a dictionary of pipelines
+    and calculate 4 metrics related to regression models on both train and test dataset
+    including cross validation scores
+    returns a dataframe of comparison
+    
+    pipelines(dict): dictionary of pipelines
+    returns pd.DataFrame
     """
 
     

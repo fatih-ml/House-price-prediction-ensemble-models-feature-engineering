@@ -1,5 +1,0 @@
-Arkadaslarim ve hocalarim bir sorum var:
-* Elimizde bir dataseti var ve Cross Val ile LinearRegression yapiyoruz
-* Cross Val setlerinin bir kisminda (2/10) cok cok extreme RMSE ve R2 (diger foldlardan milyarlarca kat fazla) donuyor
-* Diger foldlar gayet normal donuyor, Cross Val yapmadiginizda da normal donuyor
-
