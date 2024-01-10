@@ -70,8 +70,6 @@ Feature importances, particularly of the initial models (specifically GBRegresso
 
 have been the most important features for deciding a house price.
 
-<img src="data/best_features.png" alt="Model Diagram" width="600"/>
-
 ### Base Layer: Building Blended Model
 The blending phase incorporated a linear model (Ridge Regressor), Support Vector Regressor, Light GBM Regressor, and Gradient Boosting Regressor. This approach to model fusion, creating a base layer with a blended model, involved experimentation with different algorithms and weightings. VotingRegressor facilitated this process, elevating performance from a single best model with a 0.91 R2 Score and 0.116 RMSE to 0.92 R2 Score and 0.112 RMSE.
 
