@@ -44,9 +44,6 @@ Multicollinearity scrutiny encompassed numerical and categorical features, deplo
 
 To align SalePrice with a normal distribution and address skewness (1.88), log transformation was applied, marking a pivotal step in preparation for subsequent advanced regression techniques. This intricate yet indispensable interplay of preprocessing and exploratory analysis laid a robust foundation for subsequent model building, reaffirming the pivotal role of feature engineering in this study.
 
-### Machine Learning Modelling Strategy:    
-The model building process commenced with a systematic approach, involving the compilation of 10 diverse algorithms spanning linear models, tree-based models, and ensemble methods such as Gradient Boosting Regressor and LightGBM. Each algorithm was encapsulated within a pipeline, and their performance was thoroughly evaluated, considering metrics such as R2 score, MAE, MSE, RMSE, and cross-validated scores. The primary focus was on RMSE, given its significance for addressing the correctness of predictions, where as R2 score can sometimes be misleading.
-
 
 <img src="data/model_diagram.png" alt="Model Diagram" width="700"/>
 
