@@ -4,7 +4,7 @@
 # Real Estate Price Prediction: Advance Regression Techniques, Ensemble Methods
 
 ## Objective and Framework  
-Bringing together my extensive experience as a data scientist with a strong focus on machine learning and my practical involvement in real estate price valuation and prediction systems, the Kaggle competition on "House Prices: Advanced Regression Techniques" emerged as a captivating opportunity to make a meaningful contribution to the data science community.
+Bringing together my extensive experience as a **data scientist** with a strong focus on machine learning and my **practical involvement in real estate price valuation and prediction systems**, the Kaggle competition on "House Prices: Advanced Regression Techniques" emerged as a captivating opportunity to make a meaningful contribution to the data science community.
 
 The objective of this notebook is to elevate predictive modeling by synergizing real-world insights from the real estate domain with the intricacies of machine learning. In this pursuit, I aim not only to achieve accurate predictions but also to uncover valuable insights into the myriad factors shaping house prices. Capitalizing on my professional background, I embarked on this journey to contribute to the field by integrating diverse elements, including feature engineering, exploratory data analysis, and the implementation of sophisticated blended models and layered machine learning regression techniques. This approach is geared towards not only predicting house prices effectively but also fostering a deeper understanding of the underlying dynamics.
 
@@ -53,7 +53,7 @@ The model building process commenced with a systematic approach, involving the c
 ## Methodology
 
 ### Machine Learning Models:
-The model-building process began systematically by employing a collection of 10 diverse algorithms, covering linear models, tree-based models, and ensemble methods like Gradient Boosting Regressor and LightGBM. Each algorithm underwent encapsulation within a pipeline through a custom function, with thorough evaluation focusing on metrics such as R2 score, RMSE, and cross-validated scores.
+The model-building process began systematically by employing a collection of 10 diverse algorithms, covering linear models, tree-based models, and ensemble methods like Gradient Boosting Regressor and LightGBM. Each algorithm underwent encapsulation within a pipeline through a custom function, with thorough evaluation focusing on metrics such as R2 score, mae, mse, RMSE, and cross-validated scores. But **RMSE was chosen the main metric** due to its sensitivity to the magnitude of errors, interpretability in the original unit of the target variable, mathematical convenience, and widespread use as a benchmark in the field.
 
 ### Key Findings & The Importance of Feature Engineering:
 A significant outcome of this notebook underscores the importance of domain knowledge and feature engineering. Default models achieved a 0.916 R2 score and 0.115 RMSE score without hyperparameter tuning, model blending or stacking, or further feature selection methods. Feature engineering and exploratory data analysis were pivotal in this accomplishment.
@@ -61,7 +61,19 @@ A significant outcome of this notebook underscores the importance of domain know
 Ridge, Lasso, and Gradient Boost models outperformed, while KNeighborsRegressor and DecisionTreeRegressor lagged. Notably, Gradient Boosting Regressor and Light GBM Regressor excelled among tree-based models, whereas XGBoost, often a Kaggle champion, underperformed in our study.
 
 ### Feature Importances and Recursive Feature Elimination (RFE):
-Feature importances, particularly of the initial models (specifically GBRegressor), closely aligned with findings from exploratory data analysis. RFE analysis suggested selecting 30 features, offering minimal improvement. These findings supported our methodology of blending models for a robust base layer, given significant dimension reduction during preprocessing and feature engineering.
+
+Feature importances, particularly of the initial models (specifically GBRegressor), closely aligned with findings from exploratory data analysis. Moreover, we employed SHAP (SHapley Additive exPlanations), a widely recognized technique for interpreting complex machine learning models. The utilization of SHAP allowed us to gain insights into the decision-making processes of our models, elucidating the contribution of each feature towards model predictions. All these analysis showed that:  
+
+* Ground Living Area  
+* Overall Quality  
+* Median House Price (Neighborhood / location)  
+* External Quality
+* Total Bathrooms  
+* Total Rooms 
+
+have been the most important features for deciding a house price.
+
+<img src="data/best_features.png" alt="Model Diagram" width="600"/>
 
 ### Base Layer: Building Blended Model
 The blending phase incorporated a linear model (Ridge Regressor), Support Vector Regressor, Light GBM Regressor, and Gradient Boosting Regressor. This approach to model fusion, creating a base layer with a blended model, involved experimentation with different algorithms and weightings. VotingRegressor facilitated this process, elevating performance from a single best model with a 0.91 R2 Score and 0.116 RMSE to 0.92 R2 Score and 0.112 RMSE.
