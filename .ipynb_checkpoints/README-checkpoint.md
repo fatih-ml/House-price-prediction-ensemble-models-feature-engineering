@@ -4,9 +4,9 @@
 # Real Estate Price Prediction: Advance Regression Techniques, Ensemble Methods
 
 ## Objective and Framework  
-Bringing together my extensive experience as a **data scientist** with a strong focus on machine learning and my **practical involvement in real estate price valuation and prediction systems**, the Kaggle competition on "House Prices: Advanced Regression Techniques" emerged as a captivating opportunity to make a meaningful contribution to the data science community.
+Bringing together my experience as a **data scientist** with a strong focus on machine learning and my **practical involvement in real estate price valuation and prediction systems**, the Kaggle competition on "House Prices: Advanced Regression Techniques" emerged as a captivating opportunity to make a meaningful contribution to the data science community.
 
-The objective of this notebook is to elevate predictive modeling by synergizing real-world insights from the real estate domain with the intricacies of machine learning. In this pursuit, I aim not only to achieve accurate predictions but also to uncover valuable insights into the myriad factors shaping house prices. Capitalizing on my professional background, I embarked on this journey to contribute to the field by integrating diverse elements, including feature engineering, exploratory data analysis, and the implementation of sophisticated blended models and layered machine learning regression techniques. This approach is geared towards not only predicting house prices effectively but also fostering a deeper understanding of the underlying dynamics.
+The objective of this notebook is to elevate predictive modeling by synergizing real-world insights from the real estate domain with the intricacies of machine learning. In this pursuit, I aim not only to achieve accurate predictions but also to uncover valuable insights into the myriad factors shaping house prices. Capitalizing on my background, I embarked on this journey to contribute to the field by integrating diverse elements, including feature engineering, exploratory data analysis, and the implementation of sophisticated blended models and layered machine learning regression techniques. This approach is geared towards not only predicting house prices effectively but also fostering a deeper understanding of the underlying dynamics.
 
 ### Dataset    
 The Kaggle competition revolves around a dataset containing 80 crucial property features, ranging from basic attributes like total area and bathroom count to more nuanced factors such as neighborhood and kitchen quality. These properties are situated in Ames, Iowa, USA.
@@ -29,7 +29,7 @@ With a training dataset comprising 1460 properties and a validation set of 1459,
 ## Summary
 
 ### Data Preprocessing & Feature Engineering     
-Train and validation datasets, were preprocessed separately to prevent data leakage. The preprocessing phase included robust feature engineering, resulting in a professional feature selection process. After comprehensive exploratory data analysis, feature engineering, and preprocessing, the dataset was streamlined to 36 features from the original 80. Notably, this dimension reduction was achieved primarily through sophisticated feature engineering techniques and variance of the variables, rather than mathematical feature selection techniques.
+Train and validation datasets, were preprocessed separately to prevent data leakage. The preprocessing phase included robust feature engineering, resulting in a professional feature selection process. After comprehensive exploratory data analysis, feature engineering, and preprocessing, the dataset was streamlined to 36 features from the original 80. Notably, this dimension reduction was achieved primarily through various feature engineering techniques and variance of the variables, rather than mathematical feature selection techniques.
 
 Addressing missing values involved a careful imputation process. Two new features, "Neighborhood Median House Price" and "Neighborhood Square Foot Property Price," were introduced to capture essential locality nuances. Year-related features were transformed into ages, and a systematic approach with custom functions was applied to features related to basement, terrace, garage, and bathrooms, where we successfully reduced these features into single or double features. Ordinal categorical variables were handled through custom ordinal mappings to retain information without inflating dimensionality via one-hot encoding.
 
@@ -60,7 +60,6 @@ Ridge, Lasso, and Gradient Boost models outperformed, while KNeighborsRegressor 
 ### Feature Importances and Recursive Feature Elimination (RFE):
 
 Feature importances, particularly of the initial models (specifically GBRegressor), closely aligned with findings from exploratory data analysis. Moreover, we employed SHAP (SHapley Additive exPlanations), a widely recognized technique for interpreting complex machine learning models. The utilization of SHAP allowed us to gain insights into the decision-making processes of our models, elucidating the contribution of each feature towards model predictions. All these analysis showed that:  
-
 * Ground Living Area  
 * Overall Quality  
 * Median House Price (Neighborhood / location)  
@@ -68,18 +67,13 @@ Feature importances, particularly of the initial models (specifically GBRegresso
 * Total Bathrooms  
 * Total Rooms 
 
-have been the most important features for deciding a house price.
+have been the **most important features** for deciding a house price.
 
 ### Base Layer: Building Blended Model
-The blending phase incorporated a linear model (Ridge Regressor), Support Vector Regressor, Light GBM Regressor, and Gradient Boosting Regressor. This approach to model fusion, creating a base layer with a blended model, involved experimentation with different algorithms and weightings. VotingRegressor facilitated this process, elevating performance from a single best model with a 0.91 R2 Score and 0.116 RMSE to 0.92 R2 Score and 0.112 RMSE.
+We wanted to blend best performing models but in a way to incorporate different characteristics, such as a linear model (Ridge Regressor) with L2 regularization, Support Vector Regressor, and tree based boosting algorithms Light GBM Regressor, and Gradient Boosting Regressor which underlines feature importances as well. This approach to model fusion, creating a base layer with a blended model, involved experimentation with different algorithms and weightings. VotingRegressor facilitated this process, elevating performance from a single best model with a 0.91 R2 Score and 0.116 RMSE to 0.92 R2 Score and 0.112 RMSE.
 
 ### Stacked Model: Add Meta Layer
-Moving beyond blending, the stacking phase introduced a meta layer to the model architecture. Base layer predictions became new features, enriching the dataset for the meta model. Rigorous evaluation of potential meta models, including Gradient Boosting Regressor, confirmed the effectiveness of this advanced ensemble modeling technique.
-
-The comprehensive evaluation strategy, involving continuous model adjustment, culminated in a notable achievement —a 0.95 R2 score and 0.089 RMSE—a substantial improvement from initial stages, securing a 4% position on the Kaggle scoreboard, despite not explicitly optimized for Kaggle scoreboard.
-
-### Model Deployment
-The final step involved deploying the stacked model with the entire dataset. This intricate model underwent a final training iteration, leveraging the entire dataset for enhanced predictive capabilities. This deployment marked the conclusion of a comprehensive guide for data preprocessing, exploratory data analysis, regression techniques, and advanced ensemble modeling.
+Moving beyond blending, the stacking phase introduced a meta layer to the model architecture. Base layer predictions became new features, enriching the dataset for the meta model. Rigorous evaluation of potential meta models, including Lasso Regressor, confirmed the effectiveness of this advanced ensemble modeling technique. Altough meta_model predictions showed significant improvement with 0.95 R2 score and 0.089 RMSE, this was superficial in some degree because of adding train predictions as well, on the other hand this meta layer also increased the performance on validation dataset placing us from around 1500th place to 340th.
 
 
 ## Conclusion
